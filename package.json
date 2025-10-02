@@ -14,9 +14,20 @@
     "docker:down": "docker-compose down",
     "setup": "npm install && npm run prisma:generate && npm run prisma:migrate"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "prisma",
+    "postgresql",
+    "express",
+    "swagger",
+    "zod",
+    "clinica",
+    "api",
+    "rest"
+  ],
+  "author": "Douglas Meneses",
+  "license": "MIT",
   "dependencies": {
     "@prisma/client": "^6.16.2",
     "@types/express": "^5.0.3",
