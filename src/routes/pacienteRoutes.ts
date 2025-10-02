@@ -1,12 +1,17 @@
-
-import { Router } from 'express';
+import { Router } from "express";
 import {
   createPaciente,
   getAllPacientes,
   getPacienteById,
   updatePaciente,
-  deletePaciente
-} from '../controllers/pacienteController';
+  deletePaciente,
+} from "../controllers/pacienteController";
+import { validateBody, validateParams } from "../middlewares/validation";
+import {
+  createPacienteSchema,
+  updatePacienteSchema,
+  idParamSchema,
+} from "../schemas/validation";
 
 const router = Router();
 
@@ -53,7 +58,7 @@ const router = Router();
  *       500:
  *         description: Erro interno do servidor
  */
-router.post('/pacientes', createPaciente);
+router.post("/pacientes", validateBody(createPacienteSchema), createPaciente);
 
 /**
  * @swagger
@@ -67,7 +72,7 @@ router.post('/pacientes', createPaciente);
  *       500:
  *         description: Erro interno do servidor
  */
-router.get('/pacientes', getAllPacientes);
+router.get("/pacientes", getAllPacientes);
 
 /**
  * @swagger
@@ -89,7 +94,7 @@ router.get('/pacientes', getAllPacientes);
  *       500:
  *         description: Erro interno do servidor
  */
-router.get('/pacientes/:id', getPacienteById);
+router.get("/pacientes/:id", validateParams(idParamSchema), getPacienteById);
 
 /**
  * @swagger
@@ -126,7 +131,12 @@ router.get('/pacientes/:id', getPacienteById);
  *       500:
  *         description: Erro interno do servidor
  */
-router.put('/pacientes/:id', updatePaciente);
+router.put(
+  "/pacientes/:id",
+  validateParams(idParamSchema),
+  validateBody(updatePacienteSchema),
+  updatePaciente
+);
 
 /**
  * @swagger
@@ -148,6 +158,6 @@ router.put('/pacientes/:id', updatePaciente);
  *       500:
  *         description: Erro interno do servidor
  */
-router.delete('/pacientes/:id', deletePaciente);
+router.delete("/pacientes/:id", validateParams(idParamSchema), deletePaciente);
 
 export default router;

@@ -1,13 +1,17 @@
-
-import { Router } from 'express';
+import { Router } from "express";
 import {
   createMedico,
   getAllMedicos,
   getMedicoById,
   updateMedico,
-  deleteMedico
-} from '../controllers/medicoController';
-
+  deleteMedico,
+} from "../controllers/medicoController";
+import { validateBody, validateParams } from "../middlewares/validation";
+import {
+  createMedicoSchema,
+  updateMedicoSchema,
+  idParamSchema,
+} from "../schemas/validation";
 const router = Router();
 
 /**
@@ -38,10 +42,7 @@ const router = Router();
  *                 type: string
  *               email:
  *                 type: string
-
  *               especialidade:
- *                 type: string
- *               telefone:
  *                 type: string
  *               crm:
  *                 type: string
@@ -53,7 +54,7 @@ const router = Router();
  *       500:
  *         description: Erro interno do servidor
  */
-router.post('/medicos', createMedico);
+router.post("/medicos", validateBody(createMedicoSchema), createMedico);
 
 /**
  * @swagger
@@ -67,7 +68,7 @@ router.post('/medicos', createMedico);
  *       500:
  *         description: Erro interno do servidor
  */
-router.get('/medicos', getAllMedicos);
+router.get("/medicos", getAllMedicos);
 
 /**
  * @swagger
@@ -89,7 +90,7 @@ router.get('/medicos', getAllMedicos);
  *       500:
  *         description: Erro interno do servidor
  */
-router.get('/medicos/:id', getMedicoById);
+router.get("/medicos/:id", validateParams(idParamSchema), getMedicoById);
 
 /**
  * @swagger
@@ -128,7 +129,12 @@ router.get('/medicos/:id', getMedicoById);
  *       500:
  *         description: Erro interno do servidor
  */
-router.put('/medicos/:id', updateMedico);
+router.put(
+  "/medicos/:id",
+  validateParams(idParamSchema),
+  validateBody(updateMedicoSchema),
+  updateMedico
+);
 
 /**
  * @swagger
@@ -150,6 +156,6 @@ router.put('/medicos/:id', updateMedico);
  *       500:
  *         description: Erro interno do servidor
  */
-router.delete('/medicos/:id', deleteMedico);
+router.delete("/medicos/:id", validateParams(idParamSchema), deleteMedico);
 
 export default router;
