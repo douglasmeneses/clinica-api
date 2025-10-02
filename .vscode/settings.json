@@ -9,6 +9,16 @@
       "database": "youtube",
       "username": "user",
       "password": "mypassword"
+    },
+    {
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "docker",
+      "database": "clinica",
+      "username": "admin"
     }
   ]
 }

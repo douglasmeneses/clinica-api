@@ -5,24 +5,24 @@
   channel = "stable-23.11"; # or "unstable"
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    
   ];
 
   # Sets environment variables in the workspace
   env = {
     # You can get a Gemini API key through the IDX Integrations panel to the left!
-    POSTGRESQL_CONN_STRING = "postgresql://user:mypassword@localhost:5432/youtube?sslmode=disable";
+    POSTGRESQL_CONN_STRING = "postgresql://user:mypassword@localhost:5432/clinica?sslmode=disable";
   };
 
-  services.postgres = {
-    enable = true;
-  };
+  services.docker.enable = true;
+  services.postgres.enable = true;
+  services.postgres.enableTcp = true;
 
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
       "mtxr.sqltools-driver-pg"
       "mtxr.sqltools"
+      "ric-v.postgres-explorer"
     ];
 
     # Workspace lifecycle hooks
